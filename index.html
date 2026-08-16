@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Akshayakalpa Farm - Cow Feeding Game</title>
+  <meta name="description" content="Make healthy, organic, and nutritious feed for the lovely cow on Akshayakalpa Farm!">
+  
+  <!-- Google Fonts: Fredoka & Quicksand -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Device Shell (Responsive Mockup for Desktop / Full Screen on Mobile) -->
+  <div class="device-wrapper">
+    <div class="device-frame" id="game-frame">
+      
+      <!-- Main Game Viewport -->
+      <main class="game-viewport" id="game-viewport">
+        
+        <!-- SCREEN 1: Welcome Screen -->
+        <section class="screen-view active" id="screen-welcome">
+          <div class="screen-bg-image farm-bg" style="background-image: url('assets/official-assets/background.png');"></div>
+          <div class="screen-overlay welcome-overlay">
+            
+            <div class="brand-badge-card">
+              <div class="akshaya-emblem">
+                <div class="emblem-circle">
+                  <img src="assets/user-made/akp_logo.png" alt="Akshayakalpa logo" class="emblem-logo">
+                </div>
+                <div class="emblem-text">
+                  <span class="emblem-main">Akshayakalpa</span>
+                  <span class="emblem-sub">ORGANIC</span>
+                </div>
+              </div>
+              <h1 class="welcome-heading">Welcome to<br>Akshayakalpa Farm!</h1>
+              <p class="welcome-tagline">Let's make healthy &amp; tasty feed for our cow 🐮</p>
+            </div>
+
+            <div class="hero-characters-duo">
+              <img src="assets/official-assets/farmer 3.png" alt="Farmer Ganga" class="hero-ganga-thumb">
+              <img src="assets/official-assets/cow.png" alt="Cow Mascot" class="hero-cow-thumb">
+            </div>
+
+            <div class="screen-bottom-action">
+              <button class="btn-primary btn-large btn-green ripple" id="btn-start-welcome">
+                <span>Let's Begin</span>
+                <span class="btn-arrow">&rarr;</span>
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SCREEN 2: Meet Farmer & Ganga -->
+        <section class="screen-view" id="screen-intro">
+          <div class="screen-bg-image farm-bg" style="background-image: url('assets/official-assets/background.png');"></div>
+          <div class="screen-overlay intro-overlay">
+
+            <div class="story-dialogue-card">
+              <p class="dialogue-text">
+                <strong>Hi there!</strong><br>
+                This is my farm and this is my cow Ganga.<br>
+                To get a glass of pure milk, I need your help. You'll make Ganga's breakfast by choosing the right ingredients.<br>
+                <strong>Ready to help?</strong><br>
+              </p>
+            </div>
+
+            <div class="farmer-spotlight">
+              <div class="farmer-avatar-card">
+                <img src="assets/official-assets/farmer.png" alt="Farmer Ganga" class="farmer-hero-img">
+              </div>
+              <img src="assets/official-assets/cow.png" alt="Cow Ganga" class="intro-cow-img">
+            </div>
+
+            <div class="screen-bottom-action">
+              <button class="btn-primary btn-large btn-green ripple" id="btn-accept-story">
+                <span>Yes, let's do it!</span>
+                <span class="btn-arrow">&rarr;</span>
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SCREEN 3: Today's Recipe -->
+        <section class="screen-view" id="screen-recipe">
+          <div class="recipe-wooden-bg">
+            
+            <div class="clipboard-card shadow-drop pop-in">
+              <div class="clipboard-clip">
+                <div class="clip-metal"></div>
+              </div>
+              
+              <div class="clipboard-paper">
+                <div class="recipe-header">
+                  <span class="recipe-icon">📋</span>
+                  <h2 class="recipe-title">Today's Recipe</h2>
+                </div>
+                <p class="recipe-desc">Akshayakalpa Organic Feed Formula</p>
+
+                <div class="recipe-ingredients-list">
+
+                  <div class="recipe-item-row" data-id="hay">
+                    <div class="item-icon-wrap"><img src="assets/official-assets/food%20icons/dry%20fodder%20_%20hay.png" alt="Dry Fodder / Hay" class="item-icon-img"></div>
+                    <div class="item-info">
+                      <span class="item-name">Dry Fodder / Hay</span>
+                      <span class="item-benefit">Fiber &amp; roughage</span>
+                    </div>
+                    <span class="item-target-badge">1 scoop</span>
+                  </div>
+
+                  <div class="recipe-item-row" data-id="gram_husk">
+                    <div class="item-icon-wrap"><img src="assets/official-assets/food%20icons/gram%20husk.png" alt="Gram Husk" class="item-icon-img"></div>
+                    <div class="item-info">
+                      <span class="item-name">Gram Husk</span>
+                      <span class="item-benefit">Fiber &amp; protein</span>
+                    </div>
+                    <span class="item-target-badge">1 scoop</span>
+                  </div>
+
+                  <div class="recipe-item-row" data-id="green_fodder">
+                    <div class="item-icon-wrap"><img src="assets/official-assets/food%20icons/green%20fodder.png" alt="Green Fodder" class="item-icon-img"></div>
+                    <div class="item-info">
+                      <span class="item-name">Green Fodder</span>
+                      <span class="item-benefit">Fresh green nutrition</span>
+                    </div>
+                    <span class="item-target-badge">1 scoop</span>
+                  </div>
+
+                  <div class="recipe-item-row" data-id="groundnut_cake">
+                    <div class="item-icon-wrap"><img src="assets/official-assets/food%20icons/groundnut%20cake.png" alt="Groundnut Cake" class="item-icon-img"></div>
+                    <div class="item-info">
+                      <span class="item-name">Groundnut Cake</span>
+                      <span class="item-benefit">High protein boost</span>
+                    </div>
+                    <span class="item-target-badge">1 scoop</span>
+                  </div>
+
+                  <div class="recipe-item-row" data-id="legumes">
+                    <div class="item-icon-wrap"><img src="assets/official-assets/food%20icons/legumes.png" alt="Legumes" class="item-icon-img"></div>
+                    <div class="item-info">
+                      <span class="item-name">Legumes</span>
+                      <span class="item-benefit">Natural protein</span>
+                    </div>
+                    <span class="item-target-badge">1 scoop</span>
+                  </div>
+
+                  <div class="recipe-item-row" data-id="maize">
+                    <div class="item-icon-wrap"><img src="assets/official-assets/food%20icons/maize%20grain%20_%20powder.png" alt="Maize Grain / Powder" class="item-icon-img"></div>
+                    <div class="item-info">
+                      <span class="item-name">Maize Grain / Powder</span>
+                      <span class="item-benefit">Energy &amp; sweetness</span>
+                    </div>
+                    <span class="item-target-badge">1 scoop</span>
+                  </div>
+
+                  <div class="recipe-item-row" data-id="rice_bran">
+                    <div class="item-icon-wrap"><img src="assets/official-assets/food%20icons/rice%20bran.png" alt="Rice Bran" class="item-icon-img"></div>
+                    <div class="item-info">
+                      <span class="item-name">Rice Bran</span>
+                      <span class="item-benefit">Energy &amp; fiber</span>
+                    </div>
+                    <span class="item-target-badge">1 scoop</span>
+                  </div>
+
+                  <div class="recipe-item-row" data-id="silage">
+                    <div class="item-icon-wrap"><img src="assets/official-assets/food%20icons/silage.png" alt="Silage" class="item-icon-img"></div>
+                    <div class="item-info">
+                      <span class="item-name">Silage</span>
+                      <span class="item-benefit">Fermented goodness</span>
+                    </div>
+                    <span class="item-target-badge">1 scoop</span>
+                  </div>
+
+                  <div class="recipe-item-row" data-id="tree_fodder">
+                    <div class="item-icon-wrap"><img src="assets/official-assets/food%20icons/tree%20fodder.png" alt="Tree Fodder" class="item-icon-img"></div>
+                    <div class="item-info">
+                      <span class="item-name">Tree Fodder</span>
+                      <span class="item-benefit">Leafy nutrients</span>
+                    </div>
+                    <span class="item-target-badge">1 scoop</span>
+                  </div>
+
+                  <div class="recipe-item-row" data-id="wheat_bran">
+                    <div class="item-icon-wrap"><img src="assets/official-assets/food%20icons/wheat%20bran.png" alt="Wheat Bran" class="item-icon-img"></div>
+                    <div class="item-info">
+                      <span class="item-name">Wheat Bran</span>
+                      <span class="item-benefit">Fiber &amp; minerals</span>
+                    </div>
+                    <span class="item-target-badge">1 scoop</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="screen-bottom-action">
+              <button class="btn-primary btn-large btn-green ripple" id="btn-goto-prepare">
+                <span>Let's Feed the Cow!</span>
+                <span class="btn-arrow">&rarr;</span>
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SCREEN 4: Prepare Feed (Compact Mobile Grid Layout - 100% Fits Viewport) -->
+        <section class="screen-view" id="screen-prepare">
+          <div class="kitchen-table-view prepare-compact-view" style="background-image: url('assets/user-made/background.png'); background-size: cover; background-position: center top;">
+            
+            <!-- Step Instruction Bar -->
+            <div class="prepare-header-bar">
+              <h2 class="step-instruction" id="prep-instruction-text">5. PREPARE FEED</h2>
+              <p class="step-sub-instruction">Drag ingredients into the bowl</p>
+            </div>
+
+            <!-- Sneaky Cow Temptation Pop-in -->
+            <div class="sneaky-cow-popout" id="sneaky-cow-popout">
+              <div class="cow-bubble-dialogue">
+                <span>"Can I have some pizza?" 🍕</span>
+              </div>
+              <img src="assets/official-assets/cow.png" alt="Cheeky cow wanting pizza" class="sneaky-cow-img">
+
+            </div>
+
+            <!-- Central Mixing Station Area -->
+            <div class="mixing-station-container compact-station">
+              
+              <!-- Main User-Made Ceramic Green Mixing Bowl Dropzone -->
+              <div class="bowl-dropzone-wrapper compact-bowl-wrapper" id="mixing-bowl-dropzone">
+                <div class="ceramic-mixing-bowl-img-wrap compact-bowl-wrap" id="main-ceramic-bowl">
+                  <img src="assets/user-made/bowl.png" alt="User Made Green Glazed Feed Bowl" class="mixing-bowl-img user-bowl-png">
+                  
+                  <!-- Dynamic Layered Ingredients inside the Bowl -->
+                  <div class="bowl-contents-layer" id="bowl-contents-layer">
+                    <div class="ingredient-layer layer-hay" id="layer-hay"><img src="assets/official-assets/food%20icons/dry%20fodder%20_%20hay.png" alt="Dry Fodder / Hay"></div>
+                    <div class="ingredient-layer layer-maize" id="layer-maize"><img src="assets/official-assets/food%20icons/maize%20grain%20_%20powder.png" alt="Maize Grain / Powder"></div>
+                    <div class="ingredient-layer layer-gram-husk" id="layer-gram-husk"><img src="assets/official-assets/food%20icons/gram%20husk.png" alt="Gram Husk"></div>
+                    <div class="ingredient-layer layer-green-fodder" id="layer-green-fodder"><img src="assets/official-assets/food%20icons/green%20fodder.png" alt="Green Fodder"></div>
+                    <div class="ingredient-layer layer-groundnut-cake" id="layer-groundnut-cake"><img src="assets/official-assets/food%20icons/groundnut%20cake.png" alt="Groundnut Cake"></div>
+                    <div class="ingredient-layer layer-legumes" id="layer-legumes"><img src="assets/official-assets/food%20icons/legumes.png" alt="Legumes"></div>
+                    <div class="ingredient-layer layer-rice-bran" id="layer-rice-bran"><img src="assets/official-assets/food%20icons/rice%20bran.png" alt="Rice Bran"></div>
+                    <div class="ingredient-layer layer-silage" id="layer-silage"><img src="assets/official-assets/food%20icons/silage.png" alt="Silage"></div>
+                    <div class="ingredient-layer layer-tree-fodder" id="layer-tree-fodder"><img src="assets/official-assets/food%20icons/tree%20fodder.png" alt="Tree Fodder"></div>
+                    <div class="ingredient-layer layer-wheat-bran" id="layer-wheat-bran"><img src="assets/official-assets/food%20icons/wheat%20bran.png" alt="Wheat Bran"></div>
+                    <div class="ingredient-layer layer-chilli" id="layer-chilli"><span class="layer-emoji">🌶️</span></div>
+                    <div class="ingredient-layer layer-cake" id="layer-cake"><span class="layer-emoji">🍰</span></div>
+                    <div class="ingredient-layer layer-pizza" id="layer-pizza"><span class="layer-emoji">🍕</span></div>
+                  </div>
+
+                  <!-- Pouring Splash Particle Effect Container -->
+                  <div class="pour-splash-effects" id="pour-splash-effects"></div>
+                </div>
+
+                <!-- Floating Feedback Tooltip on Drop -->
+                <div class="drop-feedback-toast" id="drop-feedback-toast">+1 Ingredient Added!</div>
+              </div>
+
+              <!-- Compact Ingredients Grid (3-Column Table) -->
+              <div class="ingredients-workbench compact-grid-layout">
+
+                <!-- 1. Dry Fodder / Hay -->
+                <div class="ingredient-bowl-card" draggable="true" data-type="hay" id="ing-hay">
+                  <div class="container-graphic-wrap">
+                    <img src="assets/official-assets/food%20icons/dry%20fodder%20_%20hay.png" alt="Dry Fodder / Hay" class="container-png-img">
+                  </div>
+                </div>
+
+                <!-- 2. Maize Grain / Powder -->
+                <div class="ingredient-bowl-card" draggable="true" data-type="maize" id="ing-maize">
+                  <div class="container-graphic-wrap">
+                    <img src="assets/official-assets/food%20icons/maize%20grain%20_%20powder.png" alt="Maize Grain / Powder" class="container-png-img">
+                  </div>
+                </div>
+
+                <!-- 3. Gram Husk -->
+                <div class="ingredient-bowl-card" draggable="true" data-type="gram_husk" id="ing-gram-husk">
+                  <div class="container-graphic-wrap">
+                    <img src="assets/official-assets/food%20icons/gram%20husk.png" alt="Gram Husk" class="container-png-img">
+                  </div>
+                </div>
+
+                <!-- 4. Green Fodder -->
+                <div class="ingredient-bowl-card" draggable="true" data-type="green_fodder" id="ing-green-fodder">
+                  <div class="container-graphic-wrap">
+                    <img src="assets/official-assets/food%20icons/green%20fodder.png" alt="Green Fodder" class="container-png-img">
+                  </div>
+                </div>
+
+                <!-- 5. Groundnut Cake -->
+                <div class="ingredient-bowl-card" draggable="true" data-type="groundnut_cake" id="ing-groundnut-cake">
+                  <div class="container-graphic-wrap">
+                    <img src="assets/official-assets/food%20icons/groundnut%20cake.png" alt="Groundnut Cake" class="container-png-img">
+                  </div>
+                </div>
+
+                <!-- 6. Legumes -->
+                <div class="ingredient-bowl-card" draggable="true" data-type="legumes" id="ing-legumes">
+                  <div class="container-graphic-wrap">
+                    <img src="assets/official-assets/food%20icons/legumes.png" alt="Legumes" class="container-png-img">
+                  </div>
+                </div>
+
+                <!-- 7. Rice Bran -->
+                <div class="ingredient-bowl-card" draggable="true" data-type="rice_bran" id="ing-rice-bran">
+                  <div class="container-graphic-wrap">
+                    <img src="assets/official-assets/food%20icons/rice%20bran.png" alt="Rice Bran" class="container-png-img">
+                  </div>
+                </div>
+
+                <!-- 8. Silage -->
+                <div class="ingredient-bowl-card" draggable="true" data-type="silage" id="ing-silage">
+                  <div class="container-graphic-wrap">
+                    <img src="assets/official-assets/food%20icons/silage.png" alt="Silage" class="container-png-img">
+                  </div>
+                </div>
+
+                <!-- 9. Tree Fodder -->
+                <div class="ingredient-bowl-card" draggable="true" data-type="tree_fodder" id="ing-tree-fodder">
+                  <div class="container-graphic-wrap">
+                    <img src="assets/official-assets/food%20icons/tree%20fodder.png" alt="Tree Fodder" class="container-png-img">
+                  </div>
+                </div>
+
+                <!-- 10. Chilli -->
+                <div class="ingredient-bowl-card" draggable="true" data-type="chilli" id="ing-chilli">
+                  <div class="container-graphic-wrap emoji-placeholder">
+                    <span class="placeholder-emoji">🌶️</span>
+                  </div>
+                </div>
+
+                <!-- 11. Wheat Bran -->
+                <div class="ingredient-bowl-card" draggable="true" data-type="wheat_bran" id="ing-wheat-bran">
+                  <div class="container-graphic-wrap">
+                    <img src="assets/official-assets/food%20icons/wheat%20bran.png" alt="Wheat Bran" class="container-png-img">
+                  </div>
+                </div>
+
+                <!-- 12. Cake -->
+                <div class="ingredient-bowl-card" draggable="true" data-type="cake" id="ing-cake">
+                  <div class="container-graphic-wrap emoji-placeholder">
+                    <span class="placeholder-emoji">🍰</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- 13. Temptation Snack (Pizza) placed next to the bowl -->
+              <div class="ingredient-bowl-card temptation-card bowl-side-ingredient" draggable="true" data-type="pizza" id="ing-pizza">
+                <div class="container-graphic-wrap emoji-placeholder">
+                  <span class="placeholder-emoji">🍕</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom Floating Action CTA: Start Mixing -->
+            <div class="screen-bottom-action hidden" id="prep-ready-action">
+              <button class="btn-primary btn-large btn-orange pulse-btn ripple" id="btn-goto-ready-mix">
+                <span>Start Mixing 🥄</span>
+                <span class="btn-arrow">&rarr;</span>
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SCREEN 5: Phone Shake Instruction Screen (Direct from Start Mixing) -->
+        <section class="screen-view" id="screen-shake-instruction">
+          <div class="shake-screen-wrapper">
+            
+            <div class="shake-header">
+              <h2 class="section-title">Shake your phone!</h2>
+              <p class="section-subtitle">Give your device a good shake to mix up the organic feed!</p>
+            </div>
+
+            <div class="shake-phone-hero">
+              <!-- Animated Shaking Phone Graphic with Motion Arrows -->
+              <div class="cartoon-phone-widget" id="cartoon-phone-instruction">
+                <div class="phone-case">
+                  <div class="phone-screen">
+                    <div class="phone-smile-face">
+                      <div class="phone-eyes">
+                        <span class="eye left-eye">👀</span>
+                      </div>
+                      <div class="phone-mouth">😊</div>
+                    </div>
+                    <div class="shake-particles-box">
+                      <span class="sparkle-star">✨</span>
+                      <span class="sparkle-star">⭐</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="vibration-waves left-wave">〰️</div>
+                <div class="vibration-waves right-wave">〰️</div>
+              </div>
+            </div>
+
+            <!-- Instructions & Motion Start Trigger -->
+            <div class="shake-instruction-card">
+              <div class="instruction-icon">📱 ↔️</div>
+              <p class="instruction-text">
+                Hold your phone firmly and <strong>shake side to side</strong> to blend the feed!
+              </p>
+              
+              <button class="btn-primary btn-large btn-green ripple shake-start-btn" id="btn-start-shaking-motion">
+                <span>👋 Start Shaking!</span>
+                <span class="btn-arrow">&rarr;</span>
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SCREEN 6: Bowl Shaking & Progress Screen (Active Shaking State) -->
+        <section class="screen-view" id="screen-bowl-shaking">
+          <div class="kitchen-table-view" style="background-image: url('assets/user-made/background.png'); background-size: cover; background-position: center top;">
+            
+            <div class="mix-prompt-header">
+              <h2 class="section-title">Shaking the Feed!</h2>
+              <p class="section-subtitle">Keep shaking your device to mix all ingredients thoroughly!</p>
+            </div>
+
+            <!-- Central Bowl Shaking & Swirling Contents -->
+            <div class="shaking-bowl-container">
+              <div class="ceramic-mixing-bowl-img-wrap bowl-shaking-active" id="active-shaking-bowl">
+                <img src="assets/user-made/bowl.png" alt="Shaking Feed Bowl" class="mixing-bowl-img user-bowl-png">
+                
+                <!-- Swirling & Splashing Contents inside Bowl -->
+                <div class="bowl-contents-layer active-shaking-contents">
+                  <div class="swirling-feed-mix active-mix">
+                    <div class="swirl-core"></div>
+                    <div class="swirling-grains"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shake Progress Bar & Tap Fallback -->
+            <div class="shake-progress-card">
+              <div class="shake-progress-header">
+                <span class="shake-progress-label">Shake Progress:</span>
+                <span class="shake-progress-pct" id="shake-progress-pct">0%</span>
+              </div>
+
+              <div class="mixing-progress-bar">
+                <div class="mixing-progress-fill" id="shake-progress-fill" style="width: 0%;"></div>
+              </div>
+
+              <button class="btn-primary btn-large btn-green ripple shake-tap-boost-btn" id="btn-shake-tap-boost">
+                <span>👋 Shake / Tap to Fill Meter!</span>
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SCREEN 7: Interactive Drag Bowl to Cow Screen -->
+        <section class="screen-view" id="screen-feed-ready">
+          <div class="screen-bg-image farm-bg" style="background-image: url('assets/official-assets/background.png');"></div>
+          <div class="screen-overlay feeding-drag-overlay">
+            
+            <div class="ready-header">
+              <h2 class="section-title">Feed is ready!</h2>
+              <p class="section-subtitle">Drag the bowl to feed the cow! 🐮</p>
+            </div>
+
+            <!-- Target Cow Dropzone -->
+            <div class="cow-drop-target-area" id="cow-drop-target">
+              <div class="cow-avatar-wrapper shadow-drop">
+                <img src="assets/official-assets/cow.png" alt="Cow Mascot waiting for feed" class="cow-target-img bounce-subtle">
+              </div>
+              <div class="cow-feed-bubble" id="cow-feed-bubble">"I'm hungry! Bring me feed!" 🥣</div>
+            </div>
+
+            <!-- Draggable Fresh Feed Bowl -->
+            <div class="draggable-bowl-station">
+              <div class="draggable-feed-bowl-wrap" draggable="true" id="draggable-feed-bowl">
+                <img src="assets/user-made/bowl.png" alt="Fresh Mixed Feed Bowl" class="draggable-bowl-img">
+                <div class="ready-feed-mix-icons" id="ready-feed-mix-icons"></div>
+                <div class="ready-feed-golden-mix-overlay">
+                  <div class="ready-sparkles">✨</div>
+                </div>
+              </div>
+              <p class="drag-hint-text">👆 Drag or tap the bowl up to the cow!</p>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SCREEN 9: Cow Eating / Munching -->
+        <section class="screen-view" id="screen-eating">
+          <div class="screen-bg-image farm-bg" style="background-image: url('assets/user-made/cow-reaction.png')"></div>
+          <div class="screen-overlay feeding-overlay">
+            
+            <div class="feeding-title-bar">
+              <span class="feeding-badge">DINNER TIME! 🥣</span>
+            </div>
+
+            <div class="cow-eating-dialogue">
+              <div class="bubble-tag">
+                <span class="munch-sound">Nom nom nom...</span>
+                <span class="munch-quote">"Mmm... so tasty and fresh!" ❤️</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SCREEN 10: Cow's Reaction -->
+        <section class="screen-view" id="screen-reaction">
+          <div class="screen-bg-image farm-bg" style="background-image: url('assets/official-assets/background.png');"></div>
+          <div class="screen-overlay reaction-overlay">
+            
+            <div class="reaction-title-box">
+              <h2 class="reaction-heading" id="reaction-heading">Ganga's Cow is Happy!</h2>
+              <div class="mood-badge">
+                <span id="reaction-mood-badge">✨ Happy &amp; Energetic ✨</span>
+              </div>
+            </div>
+
+            <div class="energetic-cow-showcase">
+              <div class="energetic-cow-card zoom-in">
+                <img src="assets/official-assets/cow%20reactions/cow%20-%20love.png" alt="Cow reaction" class="cow-energetic-img dance-anim" id="reaction-cow-img">
+              </div>
+            </div>
+
+            <div class="reaction-speech-card">
+              <p class="speech-quote" id="reaction-quote">"I feel so healthy &amp; strong! Thank you!" ❤️</p>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SCREEN 11: Scorecard & Stars -->
+        <section class="screen-view" id="screen-scorecard">
+          <div class="screen-bg-image farm-bg" style="background-image: url('assets/official-assets/background.png');"></div>
+          <div class="screen-overlay scorecard-overlay">
+            
+            <div class="scorecard-paper shadow-drop pop-in">
+              
+              <div class="score-header">
+                <h2 class="score-main-title">Great job!</h2>
+                <div class="star-rating-row" id="star-rating-row">
+                  <span class="star-icon star-active" id="star-1">⭐</span>
+                  <span class="star-icon star-active" id="star-2">⭐</span>
+                  <span class="star-icon star-active" id="star-3">⭐</span>
+                </div>
+              </div>
+
+              <!-- Checklist Breakdown -->
+              <div class="score-checklist">
+                
+                <div class="checklist-row">
+                  <span class="check-icon" id="chk-ingredients">✅</span>
+                  <span class="check-label">Right ingredients</span>
+                  <span class="check-score-pill">100%</span>
+                </div>
+
+                <div class="checklist-row">
+                  <span class="check-icon" id="chk-proportions">✅</span>
+                  <span class="check-label">Good proportions</span>
+                  <span class="check-score-pill" id="score-proportions-pill">100%</span>
+                </div>
+
+                <div class="checklist-row">
+                  <span class="check-icon" id="chk-junk">✅</span>
+                  <span class="check-label">Avoided junk food</span>
+                  <span class="check-score-pill" id="score-junk-pill">100%</span>
+                </div>
+
+              </div>
+
+              <!-- Final Score Banner -->
+              <div class="final-score-bar">
+                <div class="coin-icon">🏅</div>
+                <span class="final-score-text">Final Nutrition Score:</span>
+                <span class="final-score-value" id="final-score-val">100%</span>
+              </div>
+
+              <!-- Farmer Feedback Speech -->
+              <div class="farmer-feedback-duo">
+                <img src="assets/official-assets/farmer 2.png" alt="Farmer Ganga" class="feedback-ganga-avatar">
+                <div class="feedback-bubble">
+                  <p id="feedback-text-p">"Nice work! You made a healthy, nutrient-rich organic meal!"</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="screen-bottom-action">
+              <button class="btn-primary btn-large btn-green ripple" id="btn-goto-tomorrow">
+                <span>Continue</span>
+                <span class="btn-arrow">&rarr;</span>
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SCREEN 12: See You Tomorrow / Daily Streak -->
+        <section class="screen-view" id="screen-tomorrow">
+          <div class="screen-bg-image farm-bg" style="background-image: url('assets/official-assets/background.png');"></div>
+          <div class="screen-overlay tomorrow-overlay">
+            
+            <div class="tomorrow-banner-card shadow-drop">
+              <h2 class="tomorrow-title">See you tomorrow! 🌾</h2>
+              <p class="tomorrow-body">
+                Help Ganga every day to keep the cows healthy, earn pure organic milk, and unlock fun surprises!
+              </p>
+              
+              <div class="streak-badge-box">
+                <span class="streak-flame">🔥</span>
+                <span class="streak-text">Day 1 Streak Active!</span>
+              </div>
+            </div>
+
+            <div class="tomorrow-cow-mascot">
+              <img src="assets/official-assets/cow.png" alt="Cow Mascot" class="tomorrow-cow-img bounce-subtle">
+            </div>
+
+            <div class="tomorrow-actions-stack">
+              <button class="btn-primary btn-large btn-green ripple" id="btn-play-again">
+                <span>Play Again</span>
+                <span class="btn-arrow">&rarr;</span>
+              </button>
+              
+              <button class="btn-secondary btn-large ripple" id="btn-back-home">
+                <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                <span>Back to Home</span>
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Full-Screen Confetti Canvas for Victory -->
+      <canvas id="confetti-canvas"></canvas>
+
+    </div>
+  </div>
+
+  <!-- Game Logic Script -->
+  <script src="app.js"></script>
+</body>
+</html>
