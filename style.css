@@ -51,7 +51,7 @@
 
 html, body {
   width: 100%;
-  height: 100%;
+  height: 100dvh;
   overflow: hidden;
   background-color: #2b3a24;
   background-image: 
@@ -63,6 +63,12 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@supports not (height: 100dvh) {
+  html, body {
+    height: 100vh;
+  }
 }
 
 /* --------------------------------------------------------------------------
