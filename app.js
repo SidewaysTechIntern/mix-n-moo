@@ -316,6 +316,13 @@
       populateReadyFeedIcons();
     } else if (screenId === 'screen-eating') {
       sfx.playMoo();
+      // Pre-compute the outcome and load the correct reaction image during the
+      // eating delay, so the reaction screen never flashes a stale/wrong image.
+      state.outcome = computeOutcome();
+      const reactionImg = document.getElementById('reaction-cow-img');
+      if (reactionImg && OUTCOMES[state.outcome]) {
+        reactionImg.src = OUTCOMES[state.outcome].img;
+      }
       // Auto-transition to Cow Reaction after 2.5 seconds eating delay
       clearTimeout(window._eatingDelayTimer);
       window._eatingDelayTimer = setTimeout(() => {
@@ -324,7 +331,7 @@
         }
       }, 2500);
     } else if (screenId === 'screen-reaction') {
-      state.outcome = computeOutcome();
+      if (!state.outcome) state.outcome = computeOutcome();
       renderReaction();
       // Auto-transition to Scorecard after 4 seconds
       clearTimeout(window._reactionDelayTimer);
@@ -1116,6 +1123,15 @@
 
     const prepHeader = document.getElementById('prep-instruction-text');
     if (prepHeader) prepHeader.textContent = '5. PREPARE FEED';
+
+    // Reset the draggable feed bowl back to its fresh, active state (replays)
+    const draggableBowl = document.getElementById('draggable-feed-bowl');
+    if (draggableBowl) {
+      draggableBowl.style.transform = '';
+      draggableBowl.style.opacity = '';
+    }
+    const feedBubble = document.getElementById('cow-feed-bubble');
+    if (feedBubble) feedBubble.textContent = '"I\'m hungry! Bring me feed!" 🥣';
   }
 
   // -------------------------------------------------------------------------
