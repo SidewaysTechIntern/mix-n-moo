@@ -413,6 +413,7 @@
           const dist = Math.hypot(moveX - touchStartX, moveY - touchStartY);
           if (dist > 15) {
             isTouchDragging = true;
+            card.classList.add('dragging');
             // Check if hovered over mixing bowl
             const bowlRect = mixingBowl.getBoundingClientRect();
             if (
@@ -431,6 +432,7 @@
 
       card.addEventListener('touchend', (e) => {
         mixingBowl.classList.remove('drop-hover');
+        card.classList.remove('dragging');
         if (isTouchDragging && e.changedTouches.length === 1) {
           const endX = e.changedTouches[0].clientX;
           const endY = e.changedTouches[0].clientY;
@@ -460,6 +462,9 @@
     mixingBowl.addEventListener('drop', (e) => {
       e.preventDefault();
       mixingBowl.classList.remove('drop-hover');
+      document.querySelectorAll('.ingredient-bowl-card.dragging').forEach(card => {
+        card.classList.remove('dragging');
+      });
       const type = e.dataTransfer.getData('text/plain');
       if (type) {
         addIngredientToBowl(type);
@@ -798,9 +803,18 @@
     let lastTime = 0;
 
     const SHAKE_DURATION_MS = 8000;
-    const shakeStartTime = Date.now();
+    let timerStarted = false;
+    let shakeStartTime = 0;
 
-    // Time-based progress: the mix fills to 100% after ~8 seconds of shaking.
+    // Time-based progress: the timer only begins once the player starts shaking
+    // (or taps the boost fallback), then fills to 100% after ~8 seconds.
+    function startShakeTimer() {
+      if (timerStarted || state.shakeComplete) return;
+      timerStarted = true;
+      shakeStartTime = Date.now();
+      tickShakeProgress();
+    }
+
     function tickShakeProgress() {
       if (state.currentScreen !== 'screen-bowl-shaking' || state.shakeComplete) return;
 
@@ -820,7 +834,6 @@
     }
 
     clearTimeout(window._shakeProgressTimer);
-    tickShakeProgress();
 
     function handleActiveMotion(event) {
       if (state.currentScreen !== 'screen-bowl-shaking' || state.shakeComplete) return;
@@ -841,7 +854,9 @@
         const speed = Math.abs(current.x + current.y + current.z - lastX - lastY - lastZ) / diffTime * 10000;
 
         if (speed > 500) {
-          // Shaking gives audio/haptic feedback while progress fills by time.
+          // First strong shake starts the 8-second mixing timer; keep giving
+          // audio/haptic feedback while it counts down.
+          startShakeTimer();
           sfx.playShakeRattle();
           if (navigator.vibrate) {
             try { navigator.vibrate(30); } catch (e) {}
@@ -859,6 +874,7 @@
       boostBtn.onclick = (e) => {
         if (e) e.preventDefault();
         sfx.init();
+        startShakeTimer();
         boostShakeProgress(20);
       };
 

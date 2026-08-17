@@ -904,7 +904,7 @@ html, body {
   left: 50%;
   transform: translateX(-50%);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 6px 24px;
   justify-items: center;
   align-items: center;
@@ -913,31 +913,31 @@ html, body {
 }
 
 .compact-grid-layout .container-graphic-wrap {
-  width: 85px;
-  height: 85px;
+  width: 51px;
+  height: 51px;
 }
 
 .compact-grid-layout .container-png-img {
-  width: 85px;
-  height: 85px;
+  width: 51px;
+  height: 51px;
   object-fit: cover;
 }
 
 .compact-grid-layout .pitcher-png {
-  width: 90px;
-  height: 90px;
+  width: 54px;
+  height: 54px;
 }
 
 .emoji-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 85px;
-  height: 85px;
+  width: 51px;
+  height: 51px;
 }
 
 .placeholder-emoji {
-  font-size: 46px;
+  font-size: 28px;
   line-height: 1;
 }
 
@@ -967,6 +967,12 @@ html, body {
 
 .ingredient-bowl-card:active {
   cursor: grabbing;
+}
+
+/* Active dragging state: ingredient turns 50% transparent while being dragged */
+.ingredient-bowl-card.dragging .container-graphic-wrap,
+.ingredient-bowl-card.dragging .emoji-placeholder {
+  opacity: 0.5;
 }
 
 /* --------------------------------------------------------------------------
@@ -1227,11 +1233,6 @@ html, body {
 .ingredient-bowl-card:active {
   cursor: grabbing;
   transform: scale(0.94);
-}
-
-.ingredient-bowl-card.completed {
-  opacity: 0.55;
-  filter: grayscale(40%);
 }
 
 .clay-bowl-visual {
