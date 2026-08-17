@@ -883,7 +883,7 @@ html, body {
 
 .compact-bowl-wrapper {
   position: absolute;
-  top: 37%;
+  top: 33%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 250px;
@@ -900,16 +900,21 @@ html, body {
 
 .compact-grid-layout {
   position: absolute;
-  bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(6px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px 24px;
+  gap: 4px 24px;
   justify-items: center;
   align-items: center;
   width: 100%;
   max-width: 380px;
+}
+
+/* Temptation Snack (Pizza) spans the whole last row of the ingredients table */
+.compact-grid-layout .temptation-card {
+  grid-column: 1 / -1;
 }
 
 .compact-grid-layout .container-graphic-wrap {
@@ -941,19 +946,7 @@ html, body {
   line-height: 1;
 }
 
-/* Temptation Snack (Pizza) placed beside the bowl */
-.bowl-side-ingredient {
-  position: absolute;
-  top: 38%;
-  right: 14px;
-  transform: rotate(9deg);
-  z-index: 6;
-}
-
-.bowl-side-ingredient:active {
-  transform: rotate(9deg) scale(0.92);
-}
-
+/* Ingredients Workbench (layout handled by .compact-grid-layout) */
 .ingredient-bowl-card {
   display: flex;
   flex-direction: column;
@@ -973,6 +966,34 @@ html, body {
 .ingredient-bowl-card.dragging .container-graphic-wrap,
 .ingredient-bowl-card.dragging .emoji-placeholder {
   opacity: 0.5;
+}
+
+/* Drag ghost: floating copy of the dragged ingredient (50% bigger, full opacity) */
+.drag-ghost {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 77px;
+  height: 77px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 1;
+  filter: drop-shadow(0 10px 18px rgba(40, 25, 10, 0.35));
+}
+
+.drag-ghost-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.drag-ghost-emoji {
+  font-size: 42px;
+  line-height: 1;
 }
 
 /* --------------------------------------------------------------------------
@@ -1437,6 +1458,7 @@ html, body {
   padding: 48px 16px calc(40px + env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-color: #f4e7cd;
   background-image: url('assets/user-made/phone-shake-bg.png');
   background-size: cover;

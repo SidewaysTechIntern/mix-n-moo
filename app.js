@@ -372,6 +372,48 @@
     const workbenchCards = document.querySelectorAll('.ingredient-bowl-card');
     const mixingBowl = document.getElementById('main-ceramic-bowl');
 
+    // Drag ghost: a floating copy of the dragged ingredient (50% bigger, full opacity)
+    let dragGhostEl = null;
+
+    function startDragGhost(card, x, y) {
+      if (!dragGhostEl) {
+        const ghost = document.createElement('div');
+        ghost.className = 'drag-ghost';
+        const img = card.querySelector('.container-png-img');
+        if (img) {
+          const copy = img.cloneNode(false);
+          copy.removeAttribute('class');
+          copy.className = 'drag-ghost-img';
+          ghost.appendChild(copy);
+        } else {
+          const emoji = card.querySelector('.placeholder-emoji');
+          if (emoji) {
+            const span = document.createElement('span');
+            span.className = 'drag-ghost-emoji';
+            span.textContent = emoji.textContent;
+            ghost.appendChild(span);
+          }
+        }
+        document.body.appendChild(ghost);
+        dragGhostEl = ghost;
+      }
+      moveDragGhost(x, y);
+    }
+
+    function moveDragGhost(x, y) {
+      if (dragGhostEl) {
+        dragGhostEl.style.left = `${x}px`;
+        dragGhostEl.style.top = `${y}px`;
+      }
+    }
+
+    function removeDragGhost() {
+      if (dragGhostEl) {
+        dragGhostEl.remove();
+        dragGhostEl = null;
+      }
+    }
+
     workbenchCards.forEach(card => {
       const type = card.getAttribute('data-type');
 
@@ -379,11 +421,23 @@
       card.addEventListener('dragstart', (e) => {
         sfx.init();
         e.dataTransfer.setData('text/plain', type);
+        // Hide the browser's native drag ghost; a custom full-opacity copy follows instead
+        const spacer = new Image();
+        spacer.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+        e.dataTransfer.setDragImage(spacer, 0, 0);
         card.classList.add('dragging');
+        startDragGhost(card, e.clientX, e.clientY);
+      });
+
+      card.addEventListener('drag', (e) => {
+        if (e.clientX !== 0 || e.clientY !== 0) {
+          moveDragGhost(e.clientX, e.clientY);
+        }
       });
 
       card.addEventListener('dragend', () => {
         card.classList.remove('dragging');
+        removeDragGhost();
       });
 
       // 2. Tap to Add
@@ -413,7 +467,9 @@
           const dist = Math.hypot(moveX - touchStartX, moveY - touchStartY);
           if (dist > 15) {
             isTouchDragging = true;
-            card.classList.add('dragging');
+            if (!card.classList.contains('dragging')) card.classList.add('dragging');
+            startDragGhost(card, moveX, moveY);
+            moveDragGhost(moveX, moveY);
             // Check if hovered over mixing bowl
             const bowlRect = mixingBowl.getBoundingClientRect();
             if (
@@ -433,6 +489,7 @@
       card.addEventListener('touchend', (e) => {
         mixingBowl.classList.remove('drop-hover');
         card.classList.remove('dragging');
+        removeDragGhost();
         if (isTouchDragging && e.changedTouches.length === 1) {
           const endX = e.changedTouches[0].clientX;
           const endY = e.changedTouches[0].clientY;
@@ -446,6 +503,12 @@
             addIngredientToBowl(type);
           }
         }
+      });
+
+      card.addEventListener('touchcancel', () => {
+        mixingBowl.classList.remove('drop-hover');
+        card.classList.remove('dragging');
+        removeDragGhost();
       });
     });
 
