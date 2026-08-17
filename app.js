@@ -797,6 +797,31 @@
     let lastX = 0, lastY = 0, lastZ = 0;
     let lastTime = 0;
 
+    const SHAKE_DURATION_MS = 8000;
+    const shakeStartTime = Date.now();
+
+    // Time-based progress: the mix fills to 100% after ~8 seconds of shaking.
+    function tickShakeProgress() {
+      if (state.currentScreen !== 'screen-bowl-shaking' || state.shakeComplete) return;
+
+      const elapsed = Date.now() - shakeStartTime;
+      state.shakeEnergy = Math.min(100, Math.max(state.shakeEnergy, (elapsed / SHAKE_DURATION_MS) * 100));
+      updateShakeProgressBar(state.shakeEnergy);
+
+      if (state.shakeEnergy >= 100) {
+        state.shakeComplete = true;
+        sfx.playVictory();
+        setTimeout(() => {
+          showScreen('screen-feed-ready');
+        }, 500);
+      } else {
+        window._shakeProgressTimer = setTimeout(tickShakeProgress, 100);
+      }
+    }
+
+    clearTimeout(window._shakeProgressTimer);
+    tickShakeProgress();
+
     function handleActiveMotion(event) {
       if (state.currentScreen !== 'screen-bowl-shaking' || state.shakeComplete) return;
 
@@ -816,7 +841,11 @@
         const speed = Math.abs(current.x + current.y + current.z - lastX - lastY - lastZ) / diffTime * 10000;
 
         if (speed > 500) {
-          boostShakeProgress(16);
+          // Shaking gives audio/haptic feedback while progress fills by time.
+          sfx.playShakeRattle();
+          if (navigator.vibrate) {
+            try { navigator.vibrate(30); } catch (e) {}
+          }
         }
 
         lastX = current.x;
