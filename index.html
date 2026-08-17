@@ -506,6 +506,12 @@
         <!-- SCREEN 11: Scorecard & Stars -->
         <section class="screen-view" id="screen-scorecard">
           <div class="screen-bg-image farm-bg" style="background-image: url('assets/official-assets/background.png');"></div>
+
+          <!-- Farmer asset placed on top of the background image -->
+          <div class="scorecard-farmer">
+            <img src="assets/official-assets/farmer%202.png" alt="Farmer Ganga">
+          </div>
+
           <div class="screen-overlay scorecard-overlay">
             
             <div class="scorecard-paper shadow-drop pop-in">
@@ -525,7 +531,7 @@
                 <div class="checklist-row">
                   <span class="check-icon" id="chk-ingredients">✅</span>
                   <span class="check-label">Right ingredients</span>
-                  <span class="check-score-pill">100%</span>
+                  <span class="check-score-pill" id="score-ingredients-pill">100%</span>
                 </div>
 
                 <div class="checklist-row">
@@ -542,63 +548,12 @@
 
               </div>
 
-              <!-- Final Score Banner -->
-              <div class="final-score-bar">
-                <div class="coin-icon">🏅</div>
-                <span class="final-score-text">Final Nutrition Score:</span>
-                <span class="final-score-value" id="final-score-val">100%</span>
-              </div>
-
-              <!-- Farmer Feedback Speech -->
-              <div class="farmer-feedback-duo">
-                <img src="assets/official-assets/farmer 2.png" alt="Farmer Ganga" class="feedback-ganga-avatar">
-                <div class="feedback-bubble">
-                  <p id="feedback-text-p">"Nice work! You made a healthy, nutrient-rich organic meal!"</p>
-                </div>
-              </div>
-
             </div>
 
             <div class="screen-bottom-action">
-              <button class="btn-primary btn-large btn-green ripple" id="btn-goto-tomorrow">
-                <span>Continue</span>
+              <button class="btn-primary btn-large btn-green ripple" id="btn-redo">
+                <span>Redo</span>
                 <span class="btn-arrow">&rarr;</span>
-              </button>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- SCREEN 12: Daily Streak -->
-        <section class="screen-view" id="screen-tomorrow">
-          <div class="screen-bg-image farm-bg" style="background-image: url('assets/official-assets/background.png');"></div>
-          <div class="screen-overlay tomorrow-overlay">
-            
-            <div class="tomorrow-banner-card shadow-drop">
-              <h2 class="tomorrow-title">Try again!</h2>
-              <p class="tomorrow-body">
-                Give Ganga good food for pure organic milk, and unlock fun surprises!
-              </p>
-              
-              <div class="streak-badge-box">
-                <span class="streak-flame">🔥</span>
-                <span class="streak-text">Day 1 Streak Active!</span>
-              </div>
-            </div>
-
-            <div class="tomorrow-cow-mascot">
-              <img src="assets/official-assets/cow.png" alt="Cow Mascot" class="tomorrow-cow-img bounce-subtle">
-            </div>
-
-            <div class="tomorrow-actions-stack">
-              <button class="btn-primary btn-large btn-green ripple" id="btn-play-again">
-                <span>Play Again</span>
-                <span class="btn-arrow">&rarr;</span>
-              </button>
-              
-              <button class="btn-secondary btn-large ripple" id="btn-back-home">
-                <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                <span>Back to Home</span>
               </button>
             </div>
 

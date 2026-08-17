@@ -1076,10 +1076,9 @@
   // 7. Scorecard & Star Rating Engine
   // -------------------------------------------------------------------------
   function renderScorecard() {
-    const finalScoreElem = document.getElementById('final-score-val');
-    const junkScorePill = document.getElementById('score-junk-pill');
+    const ingScorePill = document.getElementById('score-ingredients-pill');
     const propScorePill = document.getElementById('score-proportions-pill');
-    const feedbackP = document.getElementById('feedback-text-p');
+    const junkScorePill = document.getElementById('score-junk-pill');
 
     const star1 = document.getElementById('star-1');
     const star2 = document.getElementById('star-2');
@@ -1095,7 +1094,6 @@
     });
 
     const added = state.addedIngredients;
-    const outcome = state.outcome || computeOutcome();
 
     const allCorrect = !Object.keys(added).some(t =>
       t !== 'chilli' && !(t in RECIPE_TARGETS) && (added[t] || 0) > 0
@@ -1114,62 +1112,30 @@
     const hasChilli = (added.chilli || 0) > 0;
     const avoidedJunk = state.avoidedJunkFood && !hasChilli && (added.cake || 0) === 0;
 
+    // Each achieved objective = one star (1 condition right = 1 star, etc.)
+    const ingredientsOk = allCorrect && !hasChilli;
+    const objectives = [ingredientsOk, rightAmounts, avoidedJunk];
+    const stars = objectives.filter(Boolean).length;
+
     const setCheck = (el, ok) => {
       if (el) el.textContent = ok ? '✅' : '❌';
     };
-    setCheck(chkIngredients, allCorrect && !hasChilli);
+    setCheck(chkIngredients, ingredientsOk);
     setCheck(chkProportions, rightAmounts);
     setCheck(chkJunk, avoidedJunk);
 
-    let score;
-    let stars;
-    let feedback;
-    let junkLabel;
-
-    if (outcome === 'love') {
-      score = 100;
-      stars = 3;
-      junkLabel = '100%';
-      feedback = '"Outstanding! You made a 100% organic, healthy and balanced feed for my cow!"';
-    } else if (outcome === 'too-little') {
-      score = 75;
-      stars = 2;
-      junkLabel = avoidedJunk ? 'Good' : 'Tempted';
-      feedback = '"Great ingredients, but my cow needs a little more feed to feel full and strong!"';
-    } else if (outcome === 'too-full') {
-      score = 75;
-      stars = 2;
-      junkLabel = avoidedJunk ? 'Good' : 'Tempted';
-      feedback = '"Great ingredients, but that was too much! My cow feels overstuffed now."';
-    } else if (outcome === 'chilli') {
-      score = 40;
-      stars = 1;
-      junkLabel = 'Chilli!';
-      feedback = '"Oh no! Chilli is far too spicy for cows. Stick to the organic fodder!"';
-    } else {
-      score = 50;
-      stars = 1;
-      junkLabel = 'Not great';
-      feedback = '"Some of those ingredients weren\'t right for my cow. Let\'s try only organic fodder!"';
-    }
-
-    if (junkScorePill) {
-      junkScorePill.textContent = junkLabel;
-      junkScorePill.style.color = (score >= 90) ? '#377221' : '#c9541a';
-    }
-    if (propScorePill) {
-      propScorePill.textContent = rightAmounts ? '100%' : (tooLittle ? 'Too little' : 'Too much');
-    }
-    if (finalScoreElem) {
-      finalScoreElem.textContent = `${score}%`;
-    }
-    if (feedbackP) {
-      feedbackP.textContent = feedback;
-    }
+    const setPill = (el, ok, label) => {
+      if (!el) return;
+      el.textContent = label;
+      el.style.color = ok ? '#377221' : '#c9541a';
+    };
+    setPill(ingScorePill, ingredientsOk, ingredientsOk ? '100%' : 'Missed');
+    setPill(propScorePill, rightAmounts, rightAmounts ? '100%' : (tooLittle ? 'Too little' : 'Too much'));
+    setPill(junkScorePill, avoidedJunk, avoidedJunk ? '100%' : 'Tempted');
 
     // Sequential star pop-in with sound effects
     setTimeout(() => {
-      if (star1) star1.classList.add('star-active');
+      if (star1 && stars >= 1) star1.classList.add('star-active');
       sfx.playScoop('maize');
     }, 400);
 
@@ -1322,7 +1288,6 @@
     bindBtn('btn-accept-story', 'screen-recipe');
     bindBtn('btn-goto-prepare', 'screen-prepare');
     bindBtn('btn-goto-feeding', 'screen-eating');
-    bindBtn('btn-goto-tomorrow', 'screen-tomorrow');
 
     // Start Mixing CTA Button Handler
     const btnMixCTA = document.getElementById('btn-goto-ready-mix');
@@ -1338,24 +1303,14 @@
       });
     }
 
-    // Replay & Home Buttons on Last Screen
-    const btnPlayAgain = document.getElementById('btn-play-again');
-    if (btnPlayAgain) {
-      btnPlayAgain.addEventListener('click', () => {
+    // Redo CTA on the Scorecard: restart the whole mixing challenge
+    const btnRedo = document.getElementById('btn-redo');
+    if (btnRedo) {
+      btnRedo.addEventListener('click', () => {
         sfx.init();
         sfx.playTap();
         resetGame();
         showScreen('screen-recipe');
-      });
-    }
-
-    const btnBackHome = document.getElementById('btn-back-home');
-    if (btnBackHome) {
-      btnBackHome.addEventListener('click', () => {
-        sfx.init();
-        sfx.playTap();
-        resetGame();
-        showScreen('screen-welcome');
       });
     }
 

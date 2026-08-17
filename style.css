@@ -1768,121 +1768,22 @@ html, body {
   border-radius: 10px;
 }
 
-.final-score-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #3e7b27;
-  color: #ffffff;
-  padding: 8px 16px;
-  border-radius: 18px;
-  box-shadow: 0 4px 10px rgba(45, 85, 25, 0.25);
+/* Farmer character placed on top of the background, outside the star container */
+.scorecard-farmer {
+  position: absolute;
+  z-index: 2;
+  right: 8px;
+  bottom: 108px;
+  width: 168px;
+  height: 168px;
+  pointer-events: none;
 }
 
-.coin-icon {
-  font-size: 20px;
-}
-
-.final-score-text {
-  font-family: var(--font-display);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.final-score-value {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 700;
-  color: #fce881;
-}
-
-.farmer-feedback-duo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.feedback-ganga-avatar {
-  width: 48px;
-  height: 48px;
-  object-fit: cover;
-}
-
-.feedback-bubble {
-  flex: 1;
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 8px 12px;
-  border: 1px solid #dfcca6;
-  font-size: 12px;
-  font-weight: 600;
-  color: #4f3b21;
-  line-height: 1.3;
-}
-
-/* --------------------------------------------------------------------------
-   17. SCREEN 12: See You Tomorrow
-   -------------------------------------------------------------------------- */
-.tomorrow-banner-card {
-  background: rgba(255, 253, 247, 0.95);
-  border-radius: 24px;
-  padding: 18px;
-  text-align: center;
-  border: 2px solid var(--parchment-border);
-  box-shadow: var(--card-shadow);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-.tomorrow-title {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 700;
-  color: #3b2812;
-  margin-bottom: 6px;
-}
-
-.tomorrow-body {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: #5d482d;
-  margin-bottom: 12px;
-}
-
-.streak-badge-box {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #fdf1d8;
-  border: 1.5px solid #f3cb7a;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 700;
-  color: #c96213;
-}
-
-.tomorrow-cow-mascot {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.tomorrow-cow-img {
-  width: 170px;
-  height: 170px;
-  object-fit: cover;
-}
-
-.tomorrow-actions-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+.scorecard-farmer img {
   width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: bounceSubtle 3s ease-in-out infinite;
 }
 
 /* --------------------------------------------------------------------------
