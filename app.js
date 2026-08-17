@@ -822,12 +822,12 @@
     let lastX = 0, lastY = 0, lastZ = 0;
     let lastTime = 0;
 
-    const SHAKE_DURATION_MS = 8000;
+    const SHAKE_DURATION_MS = isMobile ? 6000 : 8000;
     let timerStarted = false;
     let shakeStartTime = 0;
 
     // Time-based progress: the timer only begins once the player starts shaking
-    // (or taps the boost fallback), then fills to 100% after ~8 seconds.
+    // (or taps the boost fallback), then fills to 100% after ~6s on mobile / ~8s on desktop.
     function startShakeTimer() {
       if (timerStarted || state.shakeComplete) return;
       timerStarted = true;
@@ -951,7 +951,7 @@
     // Reset the bowl to its fresh, draggable state (incl. when replaying the game)
     bowlWrap.style.transform = '';
     bowlWrap.style.opacity = '';
-    if (bubble) bubble.textContent = '"I\'m hungry! Bring me feed!" 🥣';
+    if (bubble) bubble.textContent = '"I\'m hungry! Where\'s my food?"';
 
     let fedCow = false;
 
@@ -1082,6 +1082,11 @@
       } else {
         farmerImg.src = 'assets/assets-v2/farmer%20reactions/farmer%20-%20thumbs%20down.png';
       }
+    }
+
+    const farmerBubble = document.getElementById('scorecard-farmer-bubble');
+    if (farmerBubble) {
+      farmerBubble.textContent = stars === 3 ? "Great job! You're a pro already." : 'Better luck next time!';
     }
 
     const setCheck = (el, ok) => {
@@ -1221,7 +1226,7 @@
       draggableBowl.style.opacity = '';
     }
     const feedBubble = document.getElementById('cow-feed-bubble');
-    if (feedBubble) feedBubble.textContent = '"I\'m hungry! Bring me feed!" 🥣';
+    if (feedBubble) feedBubble.textContent = '"I\'m hungry! Where\'s my food?"';
   }
 
   // -------------------------------------------------------------------------
