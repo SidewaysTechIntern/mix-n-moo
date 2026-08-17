@@ -360,13 +360,13 @@ html, body {
 }
 
 .farmer-spotlight {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-end;
   flex: 1;
   min-height: 0;
-  max-height: 340px;
-  padding-bottom: 10px;
+  margin: 8px 0;
 }
 
 .farmer-avatar-card {
@@ -431,10 +431,10 @@ html, body {
   position: relative;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   border: 3px solid #6b431e;
-  flex: 1;
-  min-height: 0;
   display: flex;
   flex-direction: column;
+  width: fit-content;
+  align-self: center;
 }
 
 .clipboard-clip {
@@ -465,8 +465,6 @@ html, body {
   background: #fffdf5;
   border-radius: 18px;
   padding: 12px 12px;
-  flex: 1;
-  min-height: 0;
   display: flex;
   flex-direction: column;
   border: 1px solid #ebd9b8;
@@ -486,9 +484,19 @@ html, body {
 
 .recipe-title {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   color: #3b2812;
+}
+
+.recipe-remember-copy {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  color: #fff8e7;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  margin: auto 0;
 }
 
 .recipe-desc {
@@ -506,44 +514,28 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  flex: 1;
-  min-height: 0;
-  justify-content: space-around;
-  overflow: hidden;
+  justify-content: flex-start;
 }
 
 .recipe-item-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #faf4e6;
-  padding: 4px 10px;
-  border-radius: 12px;
-  border: 1px solid #e7d5b8;
-  transition: transform 0.2s ease;
-}
-
-.recipe-item-row:hover {
-  transform: translateX(4px);
 }
 
 .item-icon-wrap {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 74px;
+  height: 74px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-  overflow: hidden;
-  background: #ffffff;
 }
 
 .item-icon-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 74px;
+  height: 74px;
+  object-fit: contain;
 }
 
 .maize-bg { background: #ffe9a6; }
@@ -561,26 +553,22 @@ html, body {
 
 .item-name {
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
   color: #3f2f1c;
 }
 
 .item-benefit {
-  font-size: 11px;
+  font-size: 14px;
   color: #7a664d;
   font-weight: 500;
 }
 
 .item-target-badge {
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
   color: #3b7425;
-  background: #eef8ea;
-  padding: 4px 10px;
-  border-radius: 12px;
-  border: 1px solid #c9e6bd;
 }
 
 /* --------------------------------------------------------------------------
@@ -624,7 +612,7 @@ html, body {
 }
 
 .step-sub-instruction {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 600;
   color: #796144;
 }
@@ -904,28 +892,40 @@ html, body {
   left: 50%;
   transform: translateX(-50%);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 4px 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px 10px;
   justify-items: center;
   align-items: center;
   width: 100%;
-  max-width: 380px;
-}
-
-/* Temptation Snack (Pizza) spans the whole last row of the ingredients table */
-.compact-grid-layout .temptation-card {
-  grid-column: 1 / -1;
+  max-width: 390px;
 }
 
 .compact-grid-layout .container-graphic-wrap {
-  width: 51px;
-  height: 51px;
+  position: relative;
+  width: 123px;
+  height: 123px;
+}
+
+/* Feed ingredient sits on top of the ingredient bowl; the bowl is the larger base */
+.compact-grid-layout .container-bowl-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(40, 25, 10, 0.3));
 }
 
 .compact-grid-layout .container-png-img {
-  width: 51px;
-  height: 51px;
-  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 66%;
+  height: 66%;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
 }
 
 .compact-grid-layout .pitcher-png {
@@ -986,9 +986,29 @@ html, body {
 }
 
 .drag-ghost-img {
+  position: relative;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.drag-ghost-img .container-bowl-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.drag-ghost-img .container-png-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 66%;
+  height: 66%;
+  object-fit: contain;
 }
 
 .drag-ghost-emoji {
@@ -1016,22 +1036,21 @@ html, body {
   100% { transform: translate(4px, 2px) rotate(3deg); }
 }
 
-.active-shaking-contents {
-  opacity: 1 !important;
-  top: 27px;
-  left: 23px;
-  width: 150px;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#active-shaking-bowl {
+  width: 341px;
+  height: 341px;
 }
 
-.active-mix {
-  width: 140px;
-  height: 140px;
+/* The ingredients frame: same size as the bowl png, sitting flush on top of it
+   so the two read as one unit (feed swirling inside the bowl) */
+.swirling-feed-mix.active-mix {
+  position: absolute;
+  top: 102px;
+  left: 0;
+  width: 450px;
+  height: 246px;
   border-radius: 50%;
-  background: radial-gradient(circle at center, #f5a028 0%, #68853b 60%, #3e5a22 100%);
+  background: transparent;
   animation: spinSwirl 0.8s linear infinite;
 }
 
@@ -1076,8 +1095,11 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
-  margin-top: 10px;
+  flex: 1;
+  min-height: 0;
+  margin: 8px 0;
   transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
@@ -1086,8 +1108,8 @@ html, body {
 }
 
 .cow-avatar-wrapper {
-  width: 170px;
-  height: 170px;
+  width: 182px;
+  height: 182px;
 }
 
 .cow-target-img {
@@ -1097,6 +1119,7 @@ html, body {
 }
 
 .cow-feed-bubble {
+  order: -1;
   background: rgba(255, 255, 255, 0.95);
   border: 2px solid #e89e3a;
   border-radius: 16px;
@@ -1144,7 +1167,7 @@ html, body {
 
 .drag-hint-text {
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 20px;
   font-weight: 700;
   color: #ffffff;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
@@ -1169,26 +1192,14 @@ html, body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
-.layer-hay { width: 52px; height: 52px; top: 31%; left: 29%; }
-.layer-maize { width: 56px; height: 56px; top: 19%; left: 41%; }
-.layer-gram-husk { width: 50px; height: 50px; top: 33%; left: 47%; }
-.layer-green-fodder { width: 54px; height: 54px; top: 17%; left: 29%; }
 .layer-groundnut-cake { width: 50px; height: 50px; top: 25%; left: 51%; }
+.layer-hay { width: 52px; height: 52px; top: 31%; left: 29%; }
 .layer-legumes { width: 52px; height: 52px; top: 47%; left: 25%; }
-.layer-rice-bran { width: 48px; height: 48px; top: 51%; left: 43%; }
 .layer-silage { width: 52px; height: 52px; top: 35%; left: 41%; }
-.layer-tree-fodder { width: 54px; height: 54px; top: 43%; left: 47%; }
-.layer-wheat-bran { width: 48px; height: 48px; top: 49%; left: 31%; }
+.layer-salt { width: 48px; height: 48px; top: 41%; left: 40%; }
 .layer-chilli { width: 46px; height: 46px; top: 25%; left: 37%; }
 .layer-cake { width: 46px; height: 46px; top: 41%; left: 35%; }
 .layer-pizza { width: 46px; height: 46px; top: 31%; left: 40%; }
-
-.layer-emoji {
-  font-size: 34px;
-  line-height: 1;
-  display: block;
-  text-align: center;
-}
 
 .drop-feedback-toast {
   position: absolute;
@@ -1281,11 +1292,6 @@ html, body {
   background: #d84524;
 }
 
-.temptation-card .clay-bowl-visual {
-  background: radial-gradient(circle at 35% 35%, #ecc38c 0%, #c49658 60%, #8e652a 100%);
-  border-color: #6d4b1a;
-}
-
 .hidden {
   display: none !important;
 }
@@ -1361,7 +1367,7 @@ html, body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: radial-gradient(circle at center, #d8a436 0%, #68853b 60%, #3e5a22 100%);
+  background: transparent;
   animation: spinSwirl 1.5s linear infinite;
   display: flex;
   align-items: center;
@@ -1544,34 +1550,6 @@ html, body {
   pointer-events: none;
 }
 
-.ready-feed-mix-icons {
-  position: absolute;
-  top: 16px;
-  left: 10px;
-  right: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: flex-start;
-  gap: 3px;
-  z-index: 6;
-  pointer-events: none;
-}
-
-.ready-feed-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1.5px solid #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-.ready-feed-emoji {
-  font-size: 20px;
-  line-height: 1;
-}
-
 /* --------------------------------------------------------------------------
    14. SCREEN 9: Cow Eating Scene
    -------------------------------------------------------------------------- */
@@ -1593,6 +1571,19 @@ html, body {
   padding: 5px 16px;
   border-radius: 20px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.cow-eating-showcase {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.cow-eating-img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
 }
 
 .cow-eating-dialogue {
@@ -1650,7 +1641,7 @@ html, body {
 .energetic-cow-showcase {
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 }
 
@@ -1691,6 +1682,7 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-top: 10vh;
 }
 
 .score-header {
@@ -1753,13 +1745,13 @@ html, body {
 }
 
 .check-icon {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .check-label {
   flex: 1;
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
   color: #493925;
 }

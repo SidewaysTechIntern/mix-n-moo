@@ -10,16 +10,11 @@
   // 1. Game State & Recipe Data
   // -------------------------------------------------------------------------
   const RECIPE_TARGETS = {
-    hay: 1,
-    maize: 1,
-    gram_husk: 1,
-    green_fodder: 1,
     groundnut_cake: 1,
+    hay: 1,
     legumes: 1,
-    rice_bran: 1,
     silage: 1,
-    tree_fodder: 1,
-    wheat_bran: 1
+    salt: 1
   };
 
   let TOTAL_REQUIRED_SCOOPS = 0;
@@ -35,66 +30,61 @@
   generateRecipe();
 
   const INGREDIENTS = {
-    hay:             { name: 'Dry Fodder / Hay',     icon: 'assets/official-assets/food%20icons/dry%20fodder%20_%20hay.png' },
-    maize:           { name: 'Maize Grain / Powder', icon: 'assets/official-assets/food%20icons/maize%20grain%20_%20powder.png' },
-    gram_husk:       { name: 'Gram Husk',            icon: 'assets/official-assets/food%20icons/gram%20husk.png' },
-    green_fodder:    { name: 'Green Fodder',         icon: 'assets/official-assets/food%20icons/green%20fodder.png' },
-    groundnut_cake:  { name: 'Groundnut Cake',       icon: 'assets/official-assets/food%20icons/groundnut%20cake.png' },
-    legumes:         { name: 'Legumes',              icon: 'assets/official-assets/food%20icons/legumes.png' },
-    rice_bran:       { name: 'Rice Bran',            icon: 'assets/official-assets/food%20icons/rice%20bran.png' },
-    silage:          { name: 'Silage',               icon: 'assets/official-assets/food%20icons/silage.png' },
-    tree_fodder:     { name: 'Tree Fodder',          icon: 'assets/official-assets/food%20icons/tree%20fodder.png' },
-    wheat_bran:      { name: 'Wheat Bran',           icon: 'assets/official-assets/food%20icons/wheat%20bran.png' }
+    groundnut_cake:  { name: 'Groundnut Cake',       icon: 'assets/assets-v2/food%20icons/groundnut%20cake.png' },
+    hay:             { name: 'Dry Fodder / Hay',     icon: 'assets/assets-v2/food%20icons/dry%20fodder%20_%20hay.png' },
+    legumes:         { name: 'Legumes',              icon: 'assets/assets-v2/food%20icons/legumes.png' },
+    silage:          { name: 'Silage',               icon: 'assets/assets-v2/food%20icons/silage.png' },
+    salt:            { name: 'Salt',                 icon: 'assets/assets-v2/food%20icons/salt.png' }
   };
 
   const JUNK_ITEMS = {
-    chilli: { name: 'Chilli', icon: '🌶️' },
-    cake:   { name: 'Cake',   icon: '🍰' },
-    pizza:  { name: 'Pizza',  icon: '🍕' }
+    chilli: { name: 'Chilli', icon: 'assets/assets-v2/food%20icons/chilli.png' },
+    cake:   { name: 'Cake',   icon: 'assets/assets-v2/food%20icons/cake.png' },
+    pizza:  { name: 'Pizza',  icon: 'assets/assets-v2/food%20icons/pizza.png' }
   };
 
   const OUTCOMES = {
     love: {
-      img: 'assets/official-assets/cow%20reactions/cow%20-%20love.png',
+      img: 'assets/assets-v2/cow%20reactions/cow%20-%20love.png',
       heading: "Ganga's Cow is Happy!",
       badge: '✨ Happy & Energetic ✨',
-      quote: '"I feel so healthy & strong! Thank you!" ❤️'
+      quote: '"Yum! Just what I needed…"'
     },
     'too-little': {
-      img: 'assets/official-assets/cow%20reactions/cow%20-%20too%20little.png',
+      img: 'assets/assets-v2/cow%20reactions/cow%20-%20too%20little.png',
       heading: "Ganga's Cow is Still Hungry!",
       badge: '🥺 A Little Too Little',
-      quote: '"That was a bit too little... I\'m still hungry!" 🥺'
+      quote: '"Still hungry! Need more."'
     },
     'too-full': {
-      img: 'assets/official-assets/cow%20reactions/cow%20-%20too%20full.png',
+      img: 'assets/assets-v2/cow%20reactions/cow%20-%20too%20full.png',
       heading: "Ganga's Cow is Stuffed!",
       badge: '😮 A Little Too Much',
-      quote: '"Whoa, that\'s way too much feed!" 😮'
+      quote: '"Whoa! That\'s way too much food."'
     },
     fart: {
-      img: 'assets/official-assets/cow%20reactions/cow%20-%20fart.png',
+      img: 'assets/assets-v2/cow%20reactions/cow%20-%20fart.png',
       heading: "Ganga's Cow is Feeling Funny!",
       badge: '💨 Oops!',
-      quote: '"Pfffft... that mix made me gassy!" 💨'
+      quote: '"Pfffft...that made me gassy!"'
     },
     sad: {
-      img: 'assets/official-assets/cow%20reactions/cow%20-%20sad.png',
+      img: 'assets/assets-v2/cow%20reactions/cow%20-%20sad.png',
       heading: "Ganga's Cow is Sad!",
       badge: '😢 Not the Right Mix',
-      quote: '"That wasn\'t the right mix for me..." 😢'
+      quote: '"That tasted wrong..."'
     },
     vomit: {
-      img: 'assets/official-assets/cow%20reactions/cow%20-%20vomit.png',
+      img: 'assets/assets-v2/cow%20reactions/cow%20-%20vomit.png',
       heading: "Ganga's Cow Isn't Feeling Well!",
       badge: '🤢 Bad Mix',
-      quote: '"Blegh... that mix upset my tummy!" 🤢'
+      quote: '"Blegh...that upset my tummy!"'
     },
     chilli: {
-      img: 'assets/official-assets/cow%20reactions/cow%20-%20chilli.png',
+      img: 'assets/assets-v2/cow%20reactions/cow%20-%20chilli.png',
       heading: "Ganga's Cow is Feeling the Heat!",
       badge: '🌶️ Too Spicy!',
-      quote: '"Ow ow ow! Why chilli?! That\'s way too spicy!" 🌶️'
+      quote: '"That\'s way too spicy!"'
     }
   };
 
@@ -102,16 +92,11 @@
     currentScreen: 'screen-welcome',
     soundEnabled: true,
     addedIngredients: {
-      hay: 0,
-      maize: 0,
-      gram_husk: 0,
-      green_fodder: 0,
       groundnut_cake: 0,
+      hay: 0,
       legumes: 0,
-      rice_bran: 0,
       silage: 0,
-      tree_fodder: 0,
-      wheat_bran: 0,
+      salt: 0,
       chilli: 0,
       cake: 0,
       pizza: 0
@@ -333,7 +318,6 @@
       populateSwirlIcons();
     } else if (screenId === 'screen-feed-ready') {
       initDragBowlToCow();
-      populateReadyFeedIcons();
     } else if (screenId === 'screen-eating') {
       sfx.playMoo();
       // Pre-compute the outcome and load the correct reaction image during the
@@ -379,9 +363,9 @@
       if (!dragGhostEl) {
         const ghost = document.createElement('div');
         ghost.className = 'drag-ghost';
-        const img = card.querySelector('.container-png-img');
-        if (img) {
-          const copy = img.cloneNode(false);
+        const wrap = card.querySelector('.container-graphic-wrap');
+        if (wrap) {
+          const copy = wrap.cloneNode(true);
           copy.removeAttribute('class');
           copy.className = 'drag-ghost-img';
           ghost.appendChild(copy);
@@ -678,16 +662,17 @@
       const top = `${Math.round((centerY - 12) * 10) / 10}%`;
       const left = `${Math.round((centerX - 12) * 10) / 10}%`;
 
-      if (type in INGREDIENTS) {
+      const item = INGREDIENTS[type] || JUNK_ITEMS[type];
+      if (item && typeof item.icon === 'string' && item.icon.indexOf('assets/') === 0) {
         const img = document.createElement('img');
-        img.src = INGREDIENTS[type].icon;
-        img.alt = INGREDIENTS[type].name;
+        img.src = item.icon;
+        img.alt = item.name;
         img.className = 'swirl-icon-img';
         img.style.top = top;
         img.style.left = left;
         img.style.animationDelay = `${i * 0.15}s`;
         container.appendChild(img);
-      } else {
+      } else if (JUNK_ITEMS[type]) {
         const span = document.createElement('span');
         span.className = 'swirl-icon-emoji';
         span.textContent = JUNK_ITEMS[type].icon;
@@ -697,34 +682,6 @@
         container.appendChild(span);
       }
     });
-  }
-
-  function populateReadyFeedIcons() {
-    const container = document.getElementById('ready-feed-mix-icons');
-    if (!container) return;
-    container.innerHTML = '';
-
-    const addImg = (src, alt) => {
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = alt;
-      img.className = 'ready-feed-icon';
-      container.appendChild(img);
-    };
-    const addEmoji = (emoji) => {
-      const span = document.createElement('span');
-      span.className = 'ready-feed-emoji';
-      span.textContent = emoji;
-      container.appendChild(span);
-    };
-
-    Object.keys(RECIPE_TARGETS).forEach(type => {
-      if ((state.addedIngredients[type] || 0) > 0) {
-        addImg(INGREDIENTS[type].icon, INGREDIENTS[type].name);
-      }
-    });
-    if ((state.addedIngredients.chilli || 0) > 0) addEmoji('🌶️');
-    if ((state.addedIngredients.cake || 0) > 0) addEmoji('🍰');
   }
 
   function renderRecipeAmounts() {
@@ -1114,6 +1071,19 @@
     const objectives = [ingredientsOk, rightAmounts, avoidedJunk];
     const stars = objectives.filter(Boolean).length;
 
+    // Farmer reaction reflects the final score: thumbs-up for a perfect run,
+    // "meh" when something is missing, thumbs-down when nothing worked.
+    const farmerImg = document.getElementById('scorecard-farmer-img');
+    if (farmerImg) {
+      if (stars === 3) {
+        farmerImg.src = 'assets/assets-v2/farmer%20reactions/farmer%20-%20thumbs%20up.png';
+      } else if (stars === 2) {
+        farmerImg.src = 'assets/assets-v2/farmer%20reactions/farmer%20-%20meh.png';
+      } else {
+        farmerImg.src = 'assets/assets-v2/farmer%20reactions/farmer%20-%20thumbs%20down.png';
+      }
+    }
+
     const setCheck = (el, ok) => {
       if (el) el.textContent = ok ? '✅' : '❌';
     };
@@ -1217,16 +1187,11 @@
   function resetGame() {
     generateRecipe();
     state.addedIngredients = {
-      hay: 0,
-      maize: 0,
-      gram_husk: 0,
-      green_fodder: 0,
       groundnut_cake: 0,
+      hay: 0,
       legumes: 0,
-      rice_bran: 0,
       silage: 0,
-      tree_fodder: 0,
-      wheat_bran: 0,
+      salt: 0,
       chilli: 0,
       cake: 0,
       pizza: 0
