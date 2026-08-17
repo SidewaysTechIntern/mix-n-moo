@@ -817,6 +817,11 @@
 
     if (!bowlWrap || !cowTarget) return;
 
+    // Reset the bowl to its fresh, draggable state (incl. when replaying the game)
+    bowlWrap.style.transform = '';
+    bowlWrap.style.opacity = '';
+    if (bubble) bubble.textContent = '"I\'m hungry! Bring me feed!" 🥣';
+
     let fedCow = false;
 
     function handleBowlFed() {
