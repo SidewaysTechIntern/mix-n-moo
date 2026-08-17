@@ -220,16 +220,36 @@
       if (!state.soundEnabled || !this.ctx) return;
       try {
         const now = this.ctx.currentTime;
+
+        // Items hitting the bowl: several bright, short "clinks" at random pitches
+        const clinks = 3 + Math.floor(Math.random() * 3);
+        for (let i = 0; i < clinks; i++) {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const start = now + i * 0.03;
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(1200 + Math.random() * 2200, start);
+          osc.frequency.exponentialRampToValueAtTime(600 + Math.random() * 700, start + 0.05);
+          gain.gain.setValueAtTime(0.0001, start);
+          gain.gain.exponentialRampToValueAtTime(0.18, start + 0.008);
+          gain.gain.exponentialRampToValueAtTime(0.001, start + 0.09);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(start);
+          osc.stop(start + 0.1);
+        }
+
+        // Low ceramic-bowl resonance thump underneath the clinks
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(150 + Math.random() * 80, now);
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(190 + Math.random() * 120, now);
+        gain.gain.setValueAtTime(0.14, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start(now);
-        osc.stop(now + 0.08);
+        osc.stop(now + 0.12);
       } catch (e) {}
     }
 
@@ -694,6 +714,18 @@
   // -------------------------------------------------------------------------
   // 6. Shake Instruction & Active Bowl Shaking Engine
   // -------------------------------------------------------------------------
+  async function requestDeviceMotionPermission() {
+    if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+      try {
+        const result = await DeviceMotionEvent.requestPermission();
+        return result === 'granted';
+      } catch (e) {
+        return false;
+      }
+    }
+    return typeof window !== 'undefined' && 'DeviceMotionEvent' in window;
+  }
+
   function initShakeInstructionScreen() {
     state.shakeEnergy = 0;
     state.shakeComplete = false;
@@ -735,7 +767,11 @@
 
     const startBtn = document.getElementById('btn-start-shaking-motion');
     if (startBtn) {
-      startBtn.onclick = startShakingTransition;
+      startBtn.onclick = async () => {
+        sfx.init();
+        await requestDeviceMotionPermission();
+        startShakingTransition();
+      };
     }
 
     window.removeEventListener('devicemotion', handleInitialMotion);
@@ -755,11 +791,19 @@
     state.shakeComplete = false;
     updateShakeProgressBar(0);
 
+    const isMobile = window.matchMedia('(max-width: 480px)').matches;
+    let motionDetected = false;
+
     let lastX = 0, lastY = 0, lastZ = 0;
     let lastTime = 0;
 
     function handleActiveMotion(event) {
       if (state.currentScreen !== 'screen-bowl-shaking' || state.shakeComplete) return;
+
+      if (!motionDetected) {
+        motionDetected = true;
+        clearTimeout(window._motionFallbackTimer);
+      }
 
       const current = event.accelerationIncludingGravity;
       if (!current) return;
@@ -788,6 +832,21 @@
         sfx.init();
         boostShakeProgress(20);
       };
+
+      // Mobile: shake-only interaction (button hidden, shown only as a fallback
+      // if no device motion is detected, so players don't get stuck).
+      // Desktop: keep the button as the primary progress mechanic.
+      if (isMobile) {
+        boostBtn.classList.add('hidden');
+        clearTimeout(window._motionFallbackTimer);
+        window._motionFallbackTimer = setTimeout(() => {
+          if (!motionDetected && state.currentScreen === 'screen-bowl-shaking') {
+            boostBtn.classList.remove('hidden');
+          }
+        }, 3000);
+      } else {
+        boostBtn.classList.remove('hidden');
+      }
     }
 
     window.removeEventListener('devicemotion', handleActiveMotion);
