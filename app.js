@@ -1076,10 +1076,7 @@
   // 7. Scorecard & Star Rating Engine
   // -------------------------------------------------------------------------
   function renderScorecard() {
-    const ingScorePill = document.getElementById('score-ingredients-pill');
-    const propScorePill = document.getElementById('score-proportions-pill');
-    const junkScorePill = document.getElementById('score-junk-pill');
-
+    const scoreHeading = document.getElementById('score-heading');
     const star1 = document.getElementById('star-1');
     const star2 = document.getElementById('star-2');
     const star3 = document.getElementById('star-3');
@@ -1124,14 +1121,9 @@
     setCheck(chkProportions, rightAmounts);
     setCheck(chkJunk, avoidedJunk);
 
-    const setPill = (el, ok, label) => {
-      if (!el) return;
-      el.textContent = label;
-      el.style.color = ok ? '#377221' : '#c9541a';
-    };
-    setPill(ingScorePill, ingredientsOk, ingredientsOk ? '100%' : 'Missed');
-    setPill(propScorePill, rightAmounts, rightAmounts ? '100%' : (tooLittle ? 'Too little' : 'Too much'));
-    setPill(junkScorePill, avoidedJunk, avoidedJunk ? '100%' : 'Tempted');
+    if (scoreHeading) {
+      scoreHeading.textContent = stars === 3 ? 'Great job!' : (stars === 2 ? "Something's missing..." : 'Yikes!');
+    }
 
     // Sequential star pop-in with sound effects
     setTimeout(() => {
