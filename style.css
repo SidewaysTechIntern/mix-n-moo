@@ -74,15 +74,21 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   3. Game Viewport (mobile-first, max-width 390px, fits visible viewport)
+   3. Game Viewport (mobile: full width / desktop: 390px, fits visible viewport)
    -------------------------------------------------------------------------- */
 .game-viewport {
   position: relative;
   width: 100%;
-  max-width: 390px;
   height: 100%;
   overflow: hidden;
   background: var(--parchment-bg);
+}
+
+/* On desktop, constrain the game to a phone-like column */
+@media (min-width: 481px) {
+  .game-viewport {
+    max-width: 390px;
+  }
 }
 
 .screen-view {
