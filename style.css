@@ -612,7 +612,7 @@ html, body {
 }
 
 .step-sub-instruction {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
   color: #796144;
 }
@@ -888,12 +888,12 @@ html, body {
 
 .compact-grid-layout {
   position: absolute;
-  bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(100px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px 10px;
+  gap: 2px 4px;
   justify-items: center;
   align-items: center;
   width: 100%;
@@ -902,8 +902,8 @@ html, body {
 
 .compact-grid-layout .container-graphic-wrap {
   position: relative;
-  width: 123px;
-  height: 123px;
+  width: 100px;
+  height: 100px;
 }
 
 /* Feed ingredient sits on top of the ingredient bowl; the bowl is the larger base */
