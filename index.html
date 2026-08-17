@@ -15,12 +15,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Device Shell (Responsive Mockup for Desktop / Full Screen on Mobile) -->
-  <div class="device-wrapper">
-    <div class="device-frame" id="game-frame">
-      
-      <!-- Main Game Viewport -->
-      <main class="game-viewport" id="game-viewport">
+  <!-- Main Game Viewport (max-width 390px, fits visible viewport) -->
+  <main class="game-viewport" id="game-viewport">
         
         <!-- SCREEN 1: Welcome Screen -->
         <section class="screen-view active" id="screen-welcome">
@@ -639,13 +635,9 @@
           </div>
         </section>
 
+        <!-- Full-Screen Confetti Canvas for Victory -->
+        <canvas id="confetti-canvas"></canvas>
       </main>
-
-      <!-- Full-Screen Confetti Canvas for Victory -->
-      <canvas id="confetti-canvas"></canvas>
-
-    </div>
-  </div>
 
   <!-- Game Logic Script -->
   <script src="app.js"></script>
